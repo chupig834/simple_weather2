@@ -1,0 +1,42 @@
+<div class="container-lg align-items-center" style="max-width: 1560px">
+<div *ngIf="!showDetails && r==='results'&&receivedResult" @slide2 class="col-12">
+  <h5 class="text-center">Forecast at {{cityName + "," + stateName}} </h5>
+  <div class ="d-flex justify-content-end">
+    <button type="button" class="btn btn-outline-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" [attr.fill]="clickedStar" class="bi bi-star-fill" viewBox="0 0 16 16" (click)="clickStar()">
+        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+      </svg>
+    </button>
+    <p>   </p>
+    <p (click)="toggleShowDetails()">Detail <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+    </svg></p>
+  </div>
+  <ul class="nav nav-tabs justify-content-end" *ngIf="r==='results'&&receivedResult" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <!-- <create buttons for my front end>, (1), ChartGPT -->
+      <button class="nav-link active" id="home-tab" [class.active]="activeDTab === 'dayview'" (click) = "setActiveDTab('dayview')" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Daily View</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <!-- <create buttons for my front end>, (1), ChartGPT -->
+      <button class="nav-link" id="profile-tab" [class.active]="activeDTab === 'daytemp'" (click) = "setActiveDTab('daytemp')" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Daily Temp. Chart</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <!-- <create buttons for my front end>, (1), ChartGPT -->
+      <button class="nav-link" id="contact-tab" [class.active]="activeDTab === 'daymet'" (click) = "setActiveDTab('daymet')" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Meteogram</button>
+    </li>
+  </ul>
+  <div class = "char-container" class="w-100 h-100">
+    <!-- <How to compare the toggle from Loading to current Tab>, (1), ChartGPT -->
+    <app-day-view *ngIf="parentData !== 'Loading...' && activeDTab === 'dayview'" [parentData]="parentData"></app-day-view>
+    <app-temp-chart *ngIf="parentData !== 'Loading...' && activeDTab === 'daytemp'" [parentData]="parentData"></app-temp-chart>
+    <app-temp-met *ngIf="parentData !== 'Loading...' && activeDTab === 'daymet'" [parentData]="parentData"></app-temp-met>
+  </div>
+</div>
+</div>
+
+<div class="container-lg px-0 w-100" style="max-width: 1560px" *ngIf="showDetails" @slide>
+  <app-detail-info>(toggleShowDetails)="toggleShowDetails()"</app-detail-info>
+  <app-google-map> </app-google-map>
+</div>
+

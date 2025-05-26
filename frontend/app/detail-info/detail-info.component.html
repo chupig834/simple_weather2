@@ -1,0 +1,58 @@
+<div class="chart-container" style="width: 100%; height: 100%;">
+    <h5 class="text-center mt-3">{{formatDate(detailData.startTime)}}</h5>
+    <div class="d-flex justify-content-between w-100" >
+        <button type="button" class="btn btn-outline-secondary align-items-center" (click)="onListClick()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+            </svg>
+            List
+        </button>
+        <a [href]="tweetText()" target="_blank" class="btn btn-outline-secondary d-flex align-items-center justify-content-center">
+          <i class="bi bi-twitter-x fs-4 me-2"></i>
+        </a>   
+    </div>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th scope="row" class="bg-light">Status</th>
+          <td>{{findSymbol2(findSymbol(detailData.values.weatherCode))}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Max Temperature</th>
+          <td>{{detailData.values.temperatureMax}}°F</td>
+        </tr>
+        <tr>
+          <th scope="row" class="bg-light">Min Temperature</th>
+          <td>{{detailData.values.temperatureMin}}°F</td>
+        </tr>
+        <tr>
+          <th scope="row" class="bg-light">Apparent Temperature</th>
+          <td>{{detailData.values.temperatureApparent}}°F</td>
+        </tr>
+        <tr>
+          <th scope="row" class="bg-light">Sun Rise Time</th>
+          <td>{{formatDateTime(detailData.values.sunriseTime)}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="bg-light">Sun Set Time</th>
+          <td>{{formatDateTime(detailData.values.sunsetTime)}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="bg-light">Humidity</th>
+          <td>{{detailData.values.humidity}}%</td>
+        </tr>
+        <tr>
+          <th scope="row" class="bg-light">Wind Speed</th>
+          <td>{{detailData.values.windSpeed}}mph</td>
+        </tr>
+        <tr>
+          <th scope="row" class="bg-light">Visibility</th>
+          <td>{{detailData.values.visibility}}mi</td>
+        </tr>
+        <tr>
+          <th scope="row" class="bg-light">Cloud Cover</th>
+          <td>{{detailData.values.cloudCover}}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

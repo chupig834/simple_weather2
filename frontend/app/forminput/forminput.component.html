@@ -1,0 +1,68 @@
+<form [formGroup] = "form" (ngSubmit)="submitForm()">
+    <div class="form-group row">
+      <label for="inputStreet" class="col-sm-2 offset-sm-1 col-form-label custom-offset fs-5">Street<span class="text-danger">*</span></label>
+        <div class="col-sm-7">
+          <!-- <How to set required error message>, (2), ChartGPT -->
+          <input type="text" class="form-control" id="inputStreet" formControlName="inputStreet" [ngClass]="{ 'is-invalid': f['inputStreet'].invalid && f['inputStreet'].touched }" required>
+          <div *ngIf="f['inputStreet'].invalid && f['inputStreet'].touched" class = "text-danger mt-2">
+            Please enter a valid street
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputCity" class="col-sm-2 offset-sm-1 col-form-label custom-offset fs-5">City<span class="text-danger">*</span></label>
+        <div class="col-sm-3">
+            <input 
+              class="form-control"
+              type="text"
+              id = "inputCity"
+              matInput
+              formControlName="inputCity"
+              [matAutocomplete]="auto"
+              [ngClass]="{ 'is-invalid': f['inputCity'].invalid && f['inputCity'].touched }"
+              required
+            />
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected) = "citySelect($event)" [displayWith]="displayCity">
+              <mat-option *ngFor="let p of predictions" [value]="p">
+                {{p.city}}, {{p.state}}
+              </mat-option>
+            </mat-autocomplete>
+            <div *ngIf="f['inputCity'].invalid && f['inputCity'].touched" class = "text-danger mt-2">
+              Please enter a valid city
+            </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputState" class="col-sm-2 offset-sm-1 col-form-label custom-offset fs-5">State<span class="text-danger">*</span></label>
+        <div class="col-sm-3">
+            <input
+            class="form-control"
+            type="text"
+            id="inputState"
+            matInput
+            formControlName="inputState"
+            [matAutocomplete]="stateOptions"
+            [ngClass]="{ 'is-invalid': f['inputState'].invalid && f['inputState'].touched }"
+            required
+            />
+            <mat-autocomplete #stateOptions = "matAutocomplete">
+              <mat-option *ngFor="let abb of stateAbb" [value]="stateMapping[abb]">
+                {{ stateMapping[abb] }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+      </div>
+
+      <hr class="w-50 my-4 bg-dark">
+
+      <div class="form-check d-flex justify-content-center">
+        <p class="mb-0 me-5">Autodetect Location<span class="text-danger">*</span></p>
+        <input type="checkbox" class="form-check-input me-2" formControlName="check" (change)="forceDisab($event)">
+        <label class="form-check-label" for="check">Current Location</label>
+      </div>
+
+      <div class="d-flex justify-content-center mt-4">
+        <button type="submit" class="btn btn-primary me-2" #submitButton>🔍 Search</button>
+        <button type="reset" class="btn btn-outline-secondary" #resetButton (click) ="onReset()">⏹ Clear</button>
+      </div>
+</form>

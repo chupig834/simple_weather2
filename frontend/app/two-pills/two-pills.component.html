@@ -1,0 +1,22 @@
+<div class="container-lg">
+<div class="d-flex justify-content-center mt-4 mb-4">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" [class.active]="activeTab === 'results'" (click) = "setActiveTab('results')" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Results</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" [class.active]="activeTab === 'favorites'" (click) = "setActiveTab('favorites')" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Favorites</button>
+        </li>
+      </ul>
+</div>
+</div>
+
+<div class="container-lg" style="max-width: 1560px">
+<div class="justify-content-center mt-4" *ngIf="activeTab === 'results' && receivedData">
+    <app-weather [receivedData]="receivedData"></app-weather>
+</div>
+</div>
+
+<div *ngIf="activeTab === 'favorites'" class="container-lg" style="max-width: 1560px">
+    <app-favorite (changeActiveTab)="setActiveTab($event)"></app-favorite>
+</div>
